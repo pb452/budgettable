@@ -1,0 +1,101 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Budget Application</title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="vendor\jquery/jquery-3.3.1.min.js"></script>
+  <!-- <script src="assets/libs/js/main-js.js"></script> -->
+
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>-->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+ <script src="js/ldap.js"></script> 
+
+<style>
+.btn-primary {
+	background-color: #1c98d1;
+	border-color: #2e6da4;
+}
+
+section {
+	color: white;
+	background-color: #01060c;
+	margin: 5px 0px 0px;
+}
+
+.middle {
+	padding: 20px;
+	color: white;
+	
+	margin-bottom: 10px;
+}
+
+body {
+	background-color: #393d40;
+}
+
+p {
+	text-align: justify;
+}
+
+.info {
+	border-right-style: groove;
+	border-right-width: medium;
+	/* border-right-height: 2px; */
+	border-right-color: rgba(28, 152, 209, 0.45);
+}
+
+h4 b {
+	text-decoration: underline;
+}
+</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<header>
+			<img src="./img/capture1.jpg" alt="logo"
+				style="width: 19%; padding-top: 10px;">
+			<h2 style="text-align: center; font-style: italic; color: white">Budget Application </h2>
+		</header>
+		<section>
+			<div class="row">
+				<div class="col-sm-8 col-lg-8 col-md-8">
+					<img src="" style="width: 100%;">
+
+				</div>
+				<div class="col-sm-4 col-lg-4 col-md-4" style="padding: 65px;">
+					
+					<h5 style="font-style:italic">Please Sign In</h5>
+					<form class="form-signin" >
+						<input type="text"  class="form-control" name="psno" id="usr"
+						placeholder="PS Number" pattern="[0-9]{8}" required autofocus>
+						<br> <input type="password" class="form-control" id="pwd"
+							name="pwd" placeholder="Password" required><br>						
+					
+					<!-- <select class="form-control" id="getroleemploye" required>
+					 <option style='display:none;'>Role</option>
+					 </select>   <br>-->
+					 <% if (message != '') { %>
+						<p style="color: red; display: none" id="Incorrectpassword">
+							<%= message %></p>
+							<% } %>
+						<a>
+							<button class="btn btn-lg btn-primary btn-block"  onclick="validationuser()" type="submit">
+								Sign in</button>
+						</a>
+
+					</form>
+				</div>
+			</div>
+		</section>
+		<div class="col-sm-12 col-lg-12 col-md-12 middle"></div>
+		
+
+
+	</div>
+</body>
+</html>

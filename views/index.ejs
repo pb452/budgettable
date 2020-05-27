@@ -1,0 +1,998 @@
+<!doctype html>
+<html lang="en">
+
+ 
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="vendor\bootstrap/css/bootstrap.min.css">
+    <link href="vendor\fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css\style.css">
+    <link rel="stylesheet" href="vendor\fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="vendor\vector-map/jqvmap.css">
+    <link rel="stylesheet" href="vendor\jvectormap/jquery-jvectormap-2.0.2.css">
+    <link rel="stylesheet" href="vendor\fonts/flag-icon-css/flag-icon.min.css">
+    <title> LTTS Budgeting & Forecasting Tool</title>
+    <script src="js/budget.js"></script>
+    <script src="js/masterdata.js"></script> 
+
+</head>
+<script>
+// $(document).ready(function () {
+//     budropdown();
+//     accountdropdown();
+//     salesregiondropdown();
+
+// })
+</script>
+    <body>
+    <!-- ============================================================== -->
+    <!-- main wrapper -->
+    <!-- ============================================================== -->
+    <div class="dashboard-main-wrapper">
+        <!-- ============================================================== -->
+        <!-- navbar -->
+        <!-- ============================================================== -->
+        <div class="dashboard-header">
+            <nav class="navbar navbar-expand-lg bg-white fixed-top">
+                <a class="navbar-brand" href="index.html">BUDGET APP</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto navbar-right-top">                        
+                        <li class="nav-item dropdown nav-user">
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="./img/admin.png" alt="" class="user-avatar-md rounded-circle"></a>
+                            <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
+                                <div class="nav-user-info">
+                                    <h5 class="mb-0 text-white nav-user-name">ADMIN </h5>
+                                    <span class="status"></span><span class="ml-2">Available</span>
+                                </div>
+                                <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
+                                <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
+                                <a class="dropdown-item" href="/logout"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+<br>
+
+        <!-- ============================================================== -->
+        <!-- end navbar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- left sidebar -->
+        <!-- ============================================================== -->
+         <div class="nav-left-sidebar sidebar-dark">
+            <div class="menu-list">
+                <aside class="left-sidebar">
+                    <!-- Sidebar scroll-->
+                    <div class="scroll-sidebar">
+                        <!-- Sidebar navigation-->
+                        <nav class="sidebar-nav">
+                            <ul class="nav nav-pills flex-column" id="myTab" role="tablist">
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" 
+                                    aria-selected="true" style="font-size: 18px;margin-top: 15px;width: 258px;">Dashboard</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#viewbudget" role="tab" aria-controls="profile" 
+                                    aria-selected="false" onclick="budgetlisting(),budropdown(),accountdropdown(),salesregiondropdown()" style="font-size: 18px;margin-top: 15px;width: 258px;">Budget</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9" style="font-size: 18px;margin-top: 15px;width: 258px;">Master Data</a>
+                                     <div id="submenu-9" class="collapse submenu" >
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#viewbilling" role="tab" onclick="billinglisting()" style="font-size: 18px;margin-top: 15px;width: 258px;">Billing Legal Entities</a>
+
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#viewaccount" role="tab" onclick="accountlisting(),vertical()" style="font-size: 18px;margin-top: 15px;width: 258px;">Accounts</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#viewcountry" role="tab" onclick="countrylisting(),region()" style="font-size: 18px;margin-top: 15px;width: 258px;">Countries</a>
+                                        </li>
+                                    </ul>
+                                </div> 
+                                  </li>
+                            </ul>                           
+                        </nav>
+                        <!-- End Sidebar navigation -->
+                    </div>
+                </aside>
+            </div>
+        </div> 
+        <!-- ============================================================== -->
+        <!-- end left sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- wrapper  -->
+        <!-- ============================================================== -->
+        <div class="dashboard-wrapper">
+            <div class="container-fluid  dashboard-content">
+                <!-- ============================================================== -->
+                <!-- pagehader  -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <h2>Dashboard</h2>
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <h2>Budget</h2>
+                            </div>
+                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                            <h2>Master Data</h2>                          
+                            </div>
+                        </div>
+
+                        
+                     <div class="tab-content">	
+                        <!-- <div id="addbudget" class="tab-pane fade"> -->
+                            <div id="viewbudget" class="tab-pane fade">
+                                 <h2 style="font-size: 18px;">BUDGET</h2> 
+                                <div class="pull-right" id="AddNewButton" >                      
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"style="position: relative;
+                                    margin-left: 90%;top:-20px;" data-target="#addbudget" onclick="budropdown(),accountdropdown(),salesregiondropdown()">Add Budget</button>
+                                </div>
+                                <div class="table table-responsive">
+                                    <table id="budgettable" class="table table-bordered" >
+                                        <thead style="background-color: #007bff;">
+                                            <tr style="white-space: nowrap;">
+                                                <th>Budget ID</th>
+                                                <th>Billing Legal Entity</th>
+                                                <th>Account</th>											
+                                                <th>Is_New</th>
+                                                <th>Revenue Classification</th>
+                                                <th>Type</th>									
+                                                <th>Sales region </th>
+                                                <th>Lead Revenue</th>
+                                                <th>Description</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="budgettablebody" style="color:black;" class="myTableBody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                         </div>
+
+                       	<div class="tab-content">
+                        <!-- <div id="addbudget" class="tab-pane fade"> -->
+                            <div id="viewaccount" class="tab-pane fade">
+                                 <h2 style="font-size: 18px;">ACCOUNT</h2> 
+                                <div class="pull-right" id="AddNewButton" >                      
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"style="position: relative;
+                                    margin-left: 90%;top:-20px;" data-target="#addaccount" onclick="vertical()">Add Account</button>
+                                </div>
+                                <div class="table table-responsive">
+                                    <table id="accounttable" class="table table-bordered" >
+                                        <thead style="background-color: #007bff;">
+                                            <tr style="white-space: nowrap;">
+                                                <th>Account ID</th>
+                                                <th>Account Name</th>
+                                                <th>Account Code</th>											
+                                                <th>Vertical</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="accounttablebody" style="color:black;" class="myTableBody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                          </div>
+                         
+
+                   <div class="tab-content">
+                        <!-- <div id="addbudget" class="tab-pane fade"> -->
+                            <div id="viewcountry" class="tab-pane fade">
+                                 <h2 style="font-size: 18px;">COUNTRY</h2> 
+                                <div class="pull-right" id="AddNewButton" >                      
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"style="position: relative;
+                                    margin-left: 90%;top:-20px;" data-target="#addcountry" onclick="region()">Add Country</button>
+                                </div>
+                                <div class="table table-responsive">
+                                    <table id="countrytable" class="table table-bordered" >
+                                        <thead style="background-color: #007bff;">
+                                            <tr style="white-space: nowrap;">
+                                                <th>ID</th>
+                                                <th>Country</th>
+                                                <th>Region</th>
+                                                <th>Action</th>											
+                                            </tr>
+                                        </thead>
+                                        <tbody id="countrytablebody" style="color:black;" class="myTableBody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                          </div>
+                         
+
+                    <div class="tab-content">
+                            <div id="viewbilling" class="tab-pane fade">
+                                 <h2 style="font-size: 18px;">BILLING LEGAL ENTITIES</h2> 
+                                <div class="pull-right" id="AddNewButton" >                      
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"style="position: relative;
+                                    margin-left: 90%;top:-20px;" data-target="#addbilling" onclick="">Add Billing Entity</button>
+                                </div>
+                                <div class="table table-responsive">
+                                    <table id="billingtable" class="table table-bordered" >
+                                        <thead style="background-color: #007bff;">
+                                            <tr style="white-space: nowrap;">
+                                                <th>ID</th>
+                                                <th>Billing Legal Entity</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="billingtablebody" style="color:black;" class="myTableBody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                           </div>                
+
+                    </div>
+                <!-- ============================================================== -->
+                <!-- pagehader  -->
+                <!-- ============================================================== -->
+
+                
+                
+                <!-- <Budget Add Modal> -->
+                    <div class="modal fade" id="addbudget" role="dialog" style="margin-top: 5%;left: 15%;">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color: #007bff;">
+                                    <h5 class="modal-title" style="color: white;font-size: 19px;">Add Budget </h5>
+                                    <button type="button" id="editprofilemodalclose" class="close"
+                                        data-dismiss="modal" style="color: white;">&times;</button>
+                                </div>
+                                <div class="modal-body" style="overflow:auto;" >
+                           <form action="post" onsubmit="return false">
+                                <div class="form-group row">
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-2">
+                                        <label style="width: 113px;">Billing Legal Entity </label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <select class="form-control" name="billingentity" id="legalentity"></select>                                        
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label style="width: 113px;">Account </label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <select class="form-control " name="account" id="budgetaccount"></select>
+                                    </div>
+                                    <div class="col-sm-1"> </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-2">
+                                        <label style="width: 162px;">Revenue Classification </label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <select class="form-control " name="budgetclassification" id="budgetrevenue">
+                                            <option>CONTRACTED</option>
+                                            <option>PIPELINE</option>
+                                            <option>TOFIND</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label>Type</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <select class="form-control " name="budgettype" id="budgettype">
+                                            <option>FP</option>
+                                            <option>T&M</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-1"> </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-1"></div>   
+                                    <div class="col-sm-2">
+                                        <label style="width: 113px;">Sales Region </label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <select class="form-control " name="budetsales" id="salesregion"> </select>
+                                    </div>                                  
+                                    <div class="col-sm-2">
+                                        <label style="width: 113px;">IP Lead Revenue </label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" name="leadradio-inline" checked="" class="custom-control-input"><span class="custom-control-label">Yes</span>
+                                        </label>
+                                        <label class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" name="leadradio-inline" class="custom-control-input"><span class="custom-control-label">No</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-1"> </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-1"></div>                    
+                                    <div class="col-sm-2">
+                                        <label>New</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" name="radio-inline" checked="" class="custom-control-input"><span class="custom-control-label">Yes</span>
+                                        </label>
+                                        <label class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" name="radio-inline" class="custom-control-input"><span class="custom-control-label">No</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-1"></div>
+                                </div>  
+                                    
+                                
+                                <div class="row">
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-2">
+                                        <label>Description</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <textarea  class="form-control" name="budgetdes" style=" width: 88%;"></textarea>
+                                    </div>
+                                    <div class="col-sm-1"></div>
+                                </div>
+                                <div class="modal-footer" style="border-top: 0px #e9ecef;">
+                                    <button type="submit" class="btn btn-space btn-primary" onclick="budgetadding()">Submit</button>
+                                    <button class="btn btn-space btn-secondary" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+         </div> 
+                <!-- <Budget Add end  Modal> -->
+
+<!-- <Account Add Modal> -->
+                    <div class="modal fade" id="addaccount" role="dialog" style="margin-top: 5%;left: 15%;">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color: #007bff;">
+                                    <h5 class="modal-title" style="color: white;font-size: 19px;">Add Account</h5>
+                                    <button type="button" id="editprofilemodalclose" class="close"
+                                        data-dismiss="modal" style="color: white;">&times;</button>
+                                </div>
+                                <div class="modal-body" style="overflow:auto;" >
+                           <form action="post" onsubmit="return false">
+                                            <div class="form-group row"> 
+	
+                                                <div class="col-sm-2">
+                                                    <label style="width: 20px;">Account Name</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="name" id="name" >
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <label style="width: 10px;">Account Code</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="code" id="code" >
+                                                </div>
+                                                <div class="col-sm-1"> </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-1"></div>
+                                                <div class="col-sm-2">
+                                                    <label>Vertical</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                        
+                                                    <select class="form-control" name="vertical" id="vertical">
+                                                        
+                                                    </select> 
+                                                </div>
+                                                <div class="col-sm-1"></div>
+                                            </div>
+                                            <div class="modal-footer" style="border-top: 0px #e9ecef;">
+                                    <button type="submit" class="btn btn-space btn-primary" onclick="accountadding()">Submit</button>
+                                    <button class="btn btn-space btn-secondary" data-dismiss="modal">Cancel</button>
+                                </div>
+                          </form>
+                    </div>
+                </div>
+            </div>
+         </div> 
+                <!-- <Account Add end  Modal> -->
+
+<!-- <Country Add Modal> -->
+                    <div class="modal fade" id="addcountry" role="dialog" style="margin-top: 5%;left: 15%;">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color: #007bff;">
+                                    <h5 class="modal-title" style="color: white;font-size: 19px;">Add Country</h5>
+                                    <button type="button" id="editprofilemodalclose" class="close"
+                                        data-dismiss="modal" style="color: white;">&times;</button>
+                                </div>
+                                <div class="modal-body" style="overflow:auto;" >
+                           <form action="post" onsubmit="return false">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1"></div>
+                                                <div class="col-sm-2">
+                                                    <label style="width: 113px;">Country</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                        
+                                                    <input type="text" class="form-control" name="cname" id="coname" > 
+                                                </div>
+                                                <div class="col-sm-1"> </div>
+                                                <div class="col-sm-2">
+                                                    <label style="width: 113px;">Region</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select class="form-control" name="region1" id="region" >
+                                                        
+                                                    </select> 
+                    
+                                                </div>
+                                            </div>
+                                 
+                                            <div class="modal-footer" style="border-top: 0px #e9ecef;">
+                                                <button type="submit" class="btn btn-space btn-primary" onclick="countryadding()">Submit</button>
+                                                    <button class="btn btn-space btn-secondary">Cancel</button>
+                                            </div>
+                                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+         </div> 
+                <!-- <Country Add end  Modal> -->
+
+
+<!-- <Billing Entity Add Modal> -->
+                    <div class="modal fade" id="addbilling" role="dialog" style="margin-top: 5%;left: 15%;">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color: #007bff;">
+                                    <h5 class="modal-title" style="color: white;font-size: 19px;">Add Billing Entity</h5>
+                                    <button type="button" id="editprofilemodalclose" class="close"
+                                        data-dismiss="modal" style="color: white;">&times;</button>
+                                </div>
+                                <div class="modal-body" style="overflow:auto;" >
+                           <form action="post" onsubmit="return false">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1"></div>
+                                                <div class="col-sm-2">
+                                                    <label style="width: 113px;">Billing Entity Name</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                        
+                                                    <input type="text" class="form-control" name="biname" id="bilname" > 
+                                                </div>
+                                            </div>
+                                 
+                                            <div class="modal-footer" style="border-top: 0px #e9ecef;">
+                                                <button type="submit" class="btn btn-space btn-primary" onclick="billingadding()">Submit</button>
+                                                    <button class="btn btn-space btn-secondary">Cancel</button>
+                                            </div>
+                                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+         </div> 
+                <!-- <Billing Add end  Modal> -->
+
+                
+                <!-- <Budget Edit Modal> -->
+                <div class="modal fade" id="editbudget" role="dialog" style="margin-top: 5%;left: 15%;">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: #007bff;">
+                                <h5 class="modal-title" style="color: white;font-size: 19px;">View Budget</h5>
+                                <button type="button" id="editprofilemodalclose" class="close"
+                                    data-dismiss="modal" style="color: white;">&times;</button>
+                            </div>
+
+                            <div class="modal-body" style="overflow:auto;" >
+                            <form action="post" onsubmit="return false">
+                                    <div class="form-group row">
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-2">
+                                            <label style="width: 113px;">Billing Legal Entity </label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <select class="form-control" name="editbillingentity" id="editlegalentity" disabled >                                               
+                                            </select> 
+                                            <P id="budgethidden" name="budgetid_hidden" style="color:black; display:none"></P>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label style="width: 113px;">Account </label>
+                                        </div>
+                                        <div class="col-sm-3">    
+                                            <select class="form-control " name="editaccount" id="editbudgetaccount" disabled>                                               
+                                            </select> 
+                                        </div>
+                                        <div class="col-sm-1"> </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-2">
+                                            <label style="width: 162px;">Revenue Classification </label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <select class="form-control " name="editbudgetclassification" id="editbudgetrevenue" disabled>
+                                                <option>CONTRACTED</option>
+                                                <option>PIPELINE</option>
+                                                <option>TOFIND</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label>Type</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <select class="form-control " name="editbudgettype" id="editbudgettype" disabled>
+                                                <option>FP</option>
+                                                <option>T&M</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-1"> </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1"></div>
+                
+                                        <div class="col-sm-2">
+                                            <label style="width: 113px;">Sales Region </label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <select class="form-control " name="editbudetsales" id="editsalesregion" disabled>                                       
+                                            </select>
+                                        </div>                               
+                                        <div class="col-sm-2">
+                                            <label style="width: 113px;">IP Lead Revenue </label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" value="on"name="editleadradio-inline" id="editleadrevenuecheck_yes" checked="" class="custom-control-input" disabled><span class="custom-control-label">Yes</span>
+                                            </label>
+                                            <label class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" value="off" name="editleadradio-inline" id="editleadrevenuecheck_no" class="custom-control-input" disabled><span class="custom-control-label">No</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-1"> </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1"></div>                    
+                                        <div class="col-sm-2">
+                                            <label>New</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" value="on" name="editradio-inline" id="editnewcheck_yes" checked="" class="custom-control-input" disabled><span class="custom-control-label">Yes</span>
+                                            </label>
+                                            <label class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" value="off" name="editradio-inline" id="editnewcheck_no" class="custom-control-input" disabled><span class="custom-control-label">No</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-2"></div>
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-1"></div>
+                                    </div>                                     
+                                    <div class="row">
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-2">
+                                            <label>Description</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <textarea  class="form-control" id="textera"name="editbudgetdes" style=" width: 88%;" disabled></textarea>
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                    </div>
+                                    <div class="modal-footer" style="border-top: 0px #e9ecef;">
+                                        <button type="submit" class="btn btn-space btn-primary" onclick="enablebudget()">Edit</button>
+                                        <button type="submit" class="btn btn-space btn-primary" onclick="updatebudget()">Submit</button>
+                                        <button class="btn btn-space btn-secondary" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
+                        </div>
+                    </div>
+                </div>
+             </div>    
+           
+             <!-- <Country Edit Modal> -->
+                <div class="modal fade" id="editcountry" role="dialog" style="margin-top: 5%;left: 15%;">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: #007bff;">
+                                <h5 class="modal-title" style="color: white;font-size: 19px;">View Country</h5>
+                                <button type="button" id="editprofilemodalclose" class="close"
+                                    data-dismiss="modal" style="color: white;">&times;</button>
+                            </div>
+
+                            <div class="modal-body" style="overflow:auto;" >
+                            <form action="post" onsubmit="return false">
+                                            <div class="form-group row">
+                                                         
+                                                <div class="col-sm-1"></div>
+                                                <div class="col-sm-2">
+                                                    <label style="width: 113px;">Country</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                        
+                                                    <input type="text" class="form-control" name="editing" id="editname" > 
+                                                    <P id="countryhidden" name="countryid_hidden" style="color:black; display:none"></P>
+                                                </div>
+                                                <div class="col-sm-1"> </div>
+                                                <div class="col-sm-2">
+                                                    <label style="width: 113px;">Region</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select class="form-control" name="editregion" id="editregion" >
+                                                        
+                                                    </select> 
+                    
+                                                </div>
+                                            </div>
+                                    <div class="modal-footer" style="border-top: 0px #e9ecef;">
+                                        <button type="submit" class="btn btn-space btn-primary" onclick="enablecountry()">Edit</button>
+                                        <button type="submit" class="btn btn-space btn-primary" onclick="updatecountry()">Submit</button>
+                                        <button class="btn btn-space btn-secondary" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
+                        </div>
+                    </div>
+                </div>
+             </div> 
+
+             <!-- <Account Edit Modal> -->
+                <div class="modal fade" id="editaccount" role="dialog" style="margin-top: 5%;left: 15%;">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: #007bff;">
+                                <h5 class="modal-title" style="color: white;font-size: 19px;">View Account</h5>
+                                <button type="button" id="editprofilemodalclose" class="close"
+                                    data-dismiss="modal" style="color: white;">&times;</button>
+                            </div>
+
+                            <div class="modal-body" style="overflow:auto;" >
+                             <form action="post" onsubmit="return false">
+                                            <div class="form-group row">
+                                                <div class="col-sm-2">
+                                                    <label style="width: 20px;">Account Name</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    
+                                                    <input type="text" class="form-control" name="editn" id="editname" >
+                                                    <P id="accounthidden" name="accountid_hidden" style="color:black; display:none"></P>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <label style="width: 10px;">Account Code</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="editcod" id="editcode" >
+                                                </div>
+                                                <div class="col-sm-1"> </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-1"></div>
+                                                <div class="col-sm-2">
+                                                    <label>Vertical</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                        
+                                                    <select class="form-control" name="editvertical" id="editvertical">
+                                                        
+                                                    </select> 
+                                                </div>
+                                                <div class="col-sm-1"></div>
+                                            </div>
+                                    <div class="modal-footer" style="border-top: 0px #e9ecef;">
+                                        <button type="submit" class="btn btn-space btn-primary" onclick="enableaccount()">Edit</button>
+                                        <button type="submit" class="btn btn-space btn-primary" onclick="updateaccount()">Submit</button>
+                                        <button class="btn btn-space btn-secondary" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
+                        </div>
+                    </div>
+                </div>
+             </div> 
+
+             <!-- <Billing Edit Modal> -->
+                <div class="modal fade" id="editbilling" role="dialog" style="margin-top: 5%;left: 15%;">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: #007bff;">
+                                <h5 class="modal-title" style="color: white;font-size: 19px;">View Billing Entity</h5>
+                                <button type="button" id="editprofilemodalclose" class="close"
+                                    data-dismiss="modal" style="color: white;">&times;</button>
+                            </div>
+
+                            <div class="modal-body" style="overflow:auto;" >
+                            <form action="post" onsubmit="return false">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1"></div>
+                                                <div class="col-sm-2">
+                                                    <label style="width: 113px;">Billing Entity Name</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                        
+                                                    <input type="text" class="form-control" name="editna" id="editname" > 
+                                                    <P id="billinghidden" name="billingid_hidden" style="color:black; display:none"></P>
+                                                </div>
+                                            </div>
+                                    <div class="modal-footer" style="border-top: 0px #e9ecef;">
+                                        <button type="submit" class="btn btn-space btn-primary" onclick="enablebilling()">Edit</button>
+                                        <button type="submit" class="btn btn-space btn-primary" onclick="updatebilling()">Submit</button>
+                                        <button class="btn btn-space btn-secondary" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
+                        </div>
+                    </div>
+                </div>
+             </div> 
+
+
+        </div>
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+           
+        
+
+						<!-- Success Modal For Vendor-->
+
+                        <div class="container">
+                            <div class="modal fade " role="dialog" id="Budgetsuccessmodal">
+                                <div class="modal-dialog" style="top:195px;">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="background: #00B0F0;">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                                style="opacity: 0.5;color: white;">&times;</button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            <img src="img/success.png" style="height: 105px;width:103px;">
+                                            <p>Budget Created Successfully.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="modal fade " role="dialog" id="Accountsuccessmodal">
+                                <div class="modal-dialog" style="top:195px;">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="background: #00B0F0;">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                                style="opacity: 0.5;color: white;">&times;</button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            <img src="img/success.png" style="height: 105px;width:103px;">
+                                            <p>Account Created Successfully.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+ 
+                        <div class="container">
+                            <div class="modal fade " role="dialog" id="Countrysuccessmodal">
+                                <div class="modal-dialog" style="top:195px;">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="background: #00B0F0;">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                                style="opacity: 0.5;color: white;">&times;</button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            <img src="img/success.png" style="height: 105px;width:103px;">
+                                            <p>Country Created Successfully.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="modal fade " role="dialog" id="Billingsuccessmodal">
+                                <div class="modal-dialog" style="top:195px;">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="background: #00B0F0;">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                                style="opacity: 0.5;color: white;">&times;</button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            <img src="img/success.png" style="height: 105px;width:103px;">
+                                            <p>Billing Legal Entity Created Successfully.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- /Success Modal For Vendor-->
+                        
+						<!-- Success Modal For Vendor-->
+
+						<div class="container">
+							<div class="modal fade " role="dialog" id="Budgetupdatemodal">
+								<div class="modal-dialog" style="top:195px;">
+									<div class="modal-content">
+										<div class="modal-header" style="background: #00B0F0;">
+											<button type="button" class="close" data-dismiss="modal"
+												aria-hidden="true" style="opacity: 0.5;color: white;">&times;</button>
+										</div>
+										<div class="modal-body text-center">
+											<img src="img/success.png" style="height: 105px;width:103px;">
+											<p>Budget Updated Successfully.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+                                                <div class="container">
+							<div class="modal fade " role="dialog" id="Billingupdatemodal">
+								<div class="modal-dialog" style="top:195px;">
+									<div class="modal-content">
+										<div class="modal-header" style="background: #00B0F0;">
+											<button type="button" class="close" data-dismiss="modal"
+												aria-hidden="true" style="opacity: 0.5;color: white;">&times;</button>
+										</div>
+										<div class="modal-body text-center">
+											<img src="img/success.png" style="height: 105px;width:103px;">
+											<p>Billing Entity Updated Successfully.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+                                                <div class="container">
+							<div class="modal fade " role="dialog" id="Accountupdatemodal">
+								<div class="modal-dialog" style="top:195px;">
+									<div class="modal-content">
+										<div class="modal-header" style="background: #00B0F0;">
+											<button type="button" class="close" data-dismiss="modal"
+												aria-hidden="true" style="opacity: 0.5;color: white;">&times;</button>
+										</div>
+										<div class="modal-body text-center">
+											<img src="img/success.png" style="height: 105px;width:103px;">
+											<p>Account Updated Successfully.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+                                                <div class="container">
+							<div class="modal fade " role="dialog" id="Countryupdatemodal">
+								<div class="modal-dialog" style="top:195px;">
+									<div class="modal-content">
+										<div class="modal-header" style="background: #00B0F0;">
+											<button type="button" class="close" data-dismiss="modal"
+												aria-hidden="true" style="opacity: 0.5;color: white;">&times;</button>
+										</div>
+										<div class="modal-body text-center">
+											<img src="img/success.png" style="height: 105px;width:103px;">
+											<p>Country Updated Successfully.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+                                                <div class="container">
+							<div class="modal fade " role="dialog" id="budgetdeleteModal">
+								<div class="modal-dialog" style="top:195px;">
+									<div class="modal-content">
+										<div class="modal-header" style="background: #00B0F0;">
+											<button type="button" class="close" data-dismiss="modal"
+												aria-hidden="true" style="opacity: 0.5;color: white;">&times;</button>
+										</div>
+										<div class="modal-body text-center">
+											<img src="img/success.png" style="height: 105px;width:103px;">
+											<p>Budget deleted Successfully.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+                                                <div class="container">
+							<div class="modal fade " role="dialog" id="accountdeleteModal">
+								<div class="modal-dialog" style="top:195px;">
+									<div class="modal-content">
+										<div class="modal-header" style="background: #00B0F0;">
+											<button type="button" class="close" data-dismiss="modal"
+												aria-hidden="true" style="opacity: 0.5;color: white;">&times;</button>
+										</div>
+										<div class="modal-body text-center">
+											<img src="img/success.png" style="height: 105px;width:103px;">
+											<p>Account deleted Successfully.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+ 
+                                               <div class="container">
+							<div class="modal fade " role="dialog" id="countrydeleteModal">
+								<div class="modal-dialog" style="top:195px;">
+									<div class="modal-content">
+										<div class="modal-header" style="background: #00B0F0;">
+											<button type="button" class="close" data-dismiss="modal"
+												aria-hidden="true" style="opacity: 0.5;color: white;">&times;</button>
+										</div>
+										<div class="modal-body text-center">
+											<img src="img/success.png" style="height: 105px;width:103px;">
+											<p>Country deleted Successfully.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+                                               <div class="container">
+							<div class="modal fade " role="dialog" id="billingdeleteModal">
+								<div class="modal-dialog" style="top:195px;">
+									<div class="modal-content">
+										<div class="modal-header" style="background: #00B0F0;">
+											<button type="button" class="close" data-dismiss="modal"
+												aria-hidden="true" style="opacity: 0.5;color: white;">&times;</button>
+										</div>
+										<div class="modal-body text-center">
+											<img src="img/success.png" style="height: 105px;width:103px;">
+											<p>Billing Entity deleted Successfully.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+      
+                                                
+
+						<!-- /Success Modal For Vendor-->
+            <!-- ============================================================== -->
+            <!-- <footer class="footer text-center">
+                 © 2020 Budgeting & Forecasting Tool by LTTS
+             </footer>  -->
+            <!-- ============================================================== -->
+        </div>
+    </div>
+
+    
+    <!-- ============================================================== -->
+    <!-- end main wrapper  -->
+    <!-- ============================================================== -->
+    <!-- jquery 3.3.1 js-->
+    <script src="vendor\jquery/jquery-3.3.1.min.js"></script>
+    <!-- bootstrap bundle js-->
+    <script src="vendor\bootstrap/js/bootstrap.bundle.js"></script>
+    <!-- slimscroll js-->
+    <script src="vendor\slimscroll/jquery.slimscroll.js"></script>
+    <!-- chartjs js-->
+    <!-- <script src="vendor\charts/charts-bundle/Chart.bundle.js"></script> -->
+    <!-- <script src="vendor\charts/charts-bundle/chartjs.js"></script> -->
+   
+    <!-- main js-->
+    <script src="js/main-js.js"></script>
+    <!-- jvactormap js-->
+    <script src="vendor\jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="vendor\jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- sparkline js-->
+    <script src="vendor\charts/sparkline/jquery.sparkline.js"></script>
+    <script src="vendor\charts/sparkline/spark-js.js"></script>
+     <!-- dashboard sales js-->
+    <!-- <script src="assets/libs/js/dashboard-sales.js"></script> -->
+    
+</body>
+ 
+</html>
